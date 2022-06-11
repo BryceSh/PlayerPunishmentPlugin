@@ -1,0 +1,16 @@
+# This is the config file for PlayerPunishment
+# Developed By Ubiniti
+#
+#
+# This is the customization for the ban message
+# You can change the title, appeal link and if you want the user
+# to see who they were banned by.
+banMessage:
+  enabled: true
+  title: "You've been banned!"
+  appeal: "https://www.google.com/"
+  showBannedBy: true
+
+options:
+  announceBans: true    # Announce bans to the server
+  announceKicks: true   # Announce kicks to the server

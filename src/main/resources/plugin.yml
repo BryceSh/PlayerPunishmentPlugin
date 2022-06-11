@@ -1,0 +1,8 @@
+name: PlayerPunishment
+version: '${project.version}'
+main: com.ubiniti.punishment.Punishment
+api-version: 1.19
+commands:
+  punish:
+    description: Punish a player
+    usage: "Usage: /<command> [player]"
