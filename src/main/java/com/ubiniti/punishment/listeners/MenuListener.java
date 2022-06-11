@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class MenuListener implements Listener {
@@ -61,32 +62,29 @@ public class MenuListener implements Listener {
 
             if (e.getCurrentItem() != null) {
 
-                Material selectedM = e.getCurrentItem().getType();
+                String selectedM = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
 
-                if (selectedM.equals(Material.BARRIER)) {
-
-                    Menus.openBanOptions(p, punishCommand.targetPlayer);
-
-                } else if (selectedM.equals(Material.GREEN_WOOL)) {
-
+                if (selectedM.equalsIgnoreCase("one hour")) {
+                    banLength = "One Hour";
+                    Menus.openConfirmBan(p, punishCommand.targetPlayer);
+                } else if (selectedM.equalsIgnoreCase("one day")) {
                     banLength = "One Day";
                     Menus.openConfirmBan(p, punishCommand.targetPlayer);
-
-                } else if (selectedM.equals(Material.YELLOW_WOOL)) {
-
+                } else if (selectedM.equalsIgnoreCase("one week")) {
                     banLength = "One Week";
                     Menus.openConfirmBan(p, punishCommand.targetPlayer);
-
-                } else if (selectedM.equals(Material.BEDROCK)) {
-
+                } else if (selectedM.equalsIgnoreCase("one month")) {
+                    banLength = "One Month";
+                    Menus.openConfirmBan(p, punishCommand.targetPlayer);
+                } else if (selectedM.equalsIgnoreCase("3 months")) {
+                    banLength = "3 Months";
+                    Menus.openConfirmBan(p, punishCommand.targetPlayer);
+                } else if (selectedM.equalsIgnoreCase("permanent ban")) {
                     banLength = "Permanent";
                     Menus.openConfirmBan(p, punishCommand.targetPlayer);
-
-                } else if (selectedM.equals(Material.END_CRYSTAL)) {
-
+                } else if (selectedM.equalsIgnoreCase("ip ban")) {
                     banLength = "IP Ban";
                     Menus.openConfirmBan(p, punishCommand.targetPlayer);
-
                 }
 
             }
@@ -107,22 +105,34 @@ public class MenuListener implements Listener {
                     p.closeInventory();
 
 
-                    Date length;
                     String name = ChatColor.stripColor(punishCommand.targetPlayer.getDisplayName());
                     String IP = punishCommand.targetPlayer.getAddress().getHostName();
 
-                    if (banLength.equalsIgnoreCase("one day")) {
-                        length = new Date(System.currentTimeMillis() + 1000 * (60 * 60));
-                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, length, p.getDisplayName());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(new Date());
+
+                    if (banLength.equalsIgnoreCase("one hour")) {
+                        cal.add(Calendar.HOUR_OF_DAY, 1);
+                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, cal.getTime(), p.getDisplayName());
+                    } else if (banLength.equalsIgnoreCase("one day")) {
+                        cal.add(Calendar.DAY_OF_WEEK, 1);
+                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, cal.getTime(), p.getDisplayName());
                     } else if (banLength.equalsIgnoreCase("one week")) {
-                        length = new Date(System.currentTimeMillis() + 1000 * ((60 * 60) * 24));
-                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, length, p.getDisplayName());
+                        cal.add(Calendar.WEEK_OF_MONTH, 1);
+                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, cal.getTime(), p.getDisplayName());
+                    } else if (banLength.equalsIgnoreCase("one month")) {
+                        cal.add(Calendar.MONTH, 1);
+                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, cal.getTime(), p.getDisplayName());
+                    } else if (banLength.equalsIgnoreCase("3 months")) {
+                        cal.add(Calendar.MONTH, 3);
+                        p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, cal.getTime(), p.getDisplayName());
                     } else if (banLength.equalsIgnoreCase("permanent")) {
                         p.getServer().getBanList(BanList.Type.NAME).addBan(name, banReason, null, p.getDisplayName());
                     } else if (banLength.equalsIgnoreCase("ip ban")) {
                         System.out.println("" + IP + " has been IP Banned");
                         p.getServer().banIP(punishCommand.targetPlayer.getAddress().toString());
                     }
+
 
                     if (plugin.getConfig().getBoolean("options.announceBans")) {
                         Bukkit.broadcastMessage(Punishment.pre + ChatColor.RED + "Player " + ChatColor.GOLD + punishCommand.targetPlayer.getName() + ChatColor.RED + " has been "+ ChatColor.DARK_RED + ChatColor.UNDERLINE + "banned"+ChatColor.RESET  + ChatColor.RED+" from the server!");

@@ -61,26 +61,42 @@ public class Menus {
 
        Inventory banMenu = Bukkit.createInventory(p, 27, ChatColor.RED + "Choose Length");
 
+       ItemStack oneHour = new ItemStack(Material.PAPER,1 );
+       ItemMeta oneHourM = oneHour.getItemMeta();
+       oneHourM.setDisplayName(ChatColor.GOLD + "One Hour");
+       oneHour.setItemMeta(oneHourM);
 
-       ItemStack banOne = new ItemStack(Material.GREEN_WOOL, 1);
-       ItemMeta banOneM = banOne.getItemMeta();
-       banOneM.setDisplayName(ChatColor.GREEN + "1 Day");
-       banOne.setItemMeta(banOneM);
+       ItemStack oneDay = new ItemStack(Material.PAPER,1 );
+       ItemMeta oneDayM = oneDay.getItemMeta();
+       oneDayM.setDisplayName(ChatColor.GOLD + "One Day");
+       oneDay.setItemMeta(oneDayM);
 
-       ItemStack banTwo = new ItemStack(Material.YELLOW_WOOL, 1);
-       ItemMeta banTwoM = banTwo.getItemMeta();
-       banTwoM.setDisplayName(ChatColor.YELLOW + "1 Week");
-       banTwo.setItemMeta(banTwoM);
+       ItemStack oneWeek = new ItemStack(Material.PAPER, 1);
+       ItemMeta oneWeekM = oneWeek.getItemMeta();
+       oneWeekM.setDisplayName(ChatColor.GOLD + "One Week");
+       oneWeek.setItemMeta(oneWeekM);
 
-       ItemStack banFour = new ItemStack(Material.BEDROCK, 1);
-       ItemMeta banFourM = banFour.getItemMeta();
-       banFourM.setDisplayName(ChatColor.DARK_RED + "Perm Ban");
-       banFour.setItemMeta(banFourM);
+       ItemStack oneMonth = new ItemStack(Material.PAPER, 1);
+       ItemMeta oneMonthM = oneMonth.getItemMeta();
+       oneMonthM.setDisplayName(ChatColor.GOLD + "One Month");
+       oneMonth.setItemMeta(oneMonthM);
 
-       ItemStack banFive = new ItemStack(Material.END_CRYSTAL, 1);
-       ItemMeta banFiveM = banFive.getItemMeta();
-       banFiveM.setDisplayName(ChatColor.DARK_RED + "IP Ban");
-       banFive.setItemMeta(banFiveM);
+       ItemStack threeMonths = new ItemStack(Material.PAPER, 1);
+       ItemMeta threeMonthsM = threeMonths.getItemMeta();
+       threeMonthsM.setDisplayName(ChatColor.GOLD + "3 Months");
+       threeMonths.setItemMeta(threeMonthsM);
+
+       ItemStack permBan = new ItemStack(Material.BEDROCK, 1);
+       ItemMeta permBanM = permBan.getItemMeta();
+       permBanM.setDisplayName(ChatColor.RED + "Permanent Ban");
+       permBan.setItemMeta(permBanM);
+
+       ItemStack ipBan = new ItemStack(Material.END_CRYSTAL, 1);
+       ItemMeta ipBanM = ipBan.getItemMeta();
+       ipBanM.setDisplayName(ChatColor.DARK_RED + "IP Ban");
+       ipBan.setItemMeta(ipBanM);
+
+
 
        ItemStack cancel = new ItemStack(Material.BARRIER, 1);
        ItemMeta cancelM = cancel.getItemMeta();
@@ -93,11 +109,13 @@ public class Menus {
        playerHeadM.setOwnerProfile(target.getPlayerProfile());
        playerHead.setItemMeta(playerHeadM);
 
-
-       banMenu.setItem(11, banOne);
-       banMenu.setItem(12, banTwo);
-       banMenu.setItem(13, banFour);
-       banMenu.setItem(14, banFive);
+       banMenu.setItem(10, oneHour);
+       banMenu.setItem(11, oneDay);
+       banMenu.setItem(12, oneWeek);
+       banMenu.setItem(13, oneMonth);
+       banMenu.setItem(14, threeMonths);
+       banMenu.setItem(15, permBan);
+       banMenu.setItem(16, ipBan);
        banMenu.setItem(26, cancel);
        banMenu.setItem(4, playerHead);
 
